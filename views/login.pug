@@ -1,0 +1,13 @@
+extends layout
+block content
+    div(id="container")
+        div(id="sidebarLogin")
+        div(id="topbar")
+            div(id="loginForm")
+                form(action="/login" method="post" class="form-inline")
+                    input(type="text" class="form-control" placeholder="username")
+                    input(type="password" class="form-control" placeholder="password")
+                    div(class="form-check")
+                    label(class="form-check-label") Remember Me
+                        input(type="checkbox" class="form-check-input") 
+                    button(type="submit" class="btn btn-primary") Login

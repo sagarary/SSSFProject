@@ -1,8 +1,66 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-}
-
-a {
-  color: #00B7FF;
+@media screen and (min-width :480px){
+  body {
+    padding: 1px;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  }
+  
+  a {
+    color: #00B7FF;
+  }
+  #container{
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+  }
+  #map{
+    height: 100vh;
+    width: 100vw;
+  }
+  
+  #topbar{
+    height: 10vh;
+    width: 98vw;
+    max-height: 45px;
+    top: 1vh;
+    left:1vw;
+    position: absolute;
+    background: rgba(65, 70, 75, 0.9);
+    z-index: 1;
+    display: flex;
+    justify-content: right;
+    align-items: flex-end;
+    overflow: hidden;
+  }
+  #sidebar{
+    height: 50vh;
+    width: 20vw;
+    top: 1vh;
+    left:1vw;
+    position: absolute;
+    background: rgba(65, 70, 75, 0.9);
+    z-index: 1;
+  }
+  #sidebarUser, #sidebarLogin{
+    height: 80vh;
+    width: 20vw;
+    top: 12vh;
+    left:1vw;
+    position: absolute;
+    background: rgba(65, 70, 75, 0.9);
+    z-index: 1;
+  }
+  #loginForm{
+    justify-content: center;
+    align-items: flex-end;
+    overflow: hidden;
+  }
+  .form-inline{
+    float: right;
+    max-height: 80%;    
+    margin: auto;
+  }
+  .form-control{
+    margin: 3px;
+    max-width: 200px;
+  }
 }

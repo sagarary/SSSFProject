@@ -4,7 +4,7 @@ const express = require('express')
 ,User = require('../models/users');
 
 router.get('/', (req,res) => {
-    res.send ('asked for user');
+    res.render('user');
 })
 router.get('/:id', (req,res) => {
     res.send(`asked for user ${req.params.id}`)
