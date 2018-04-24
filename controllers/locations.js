@@ -4,18 +4,43 @@ const express = require('express')
 ,Location = require('../models/locations');
 
 router.get('/', (req,res) => {
-    res.send ('asked for locations');
+    Location.find().then((err,location)=>{
+        err ? res.send(err) : res.send(location);
+    })
 })
-router.get('/:id', (req,res) => {
-    res.send(`asked for locations ${req.params.id}`)
+router.get('/id/:id', (req,res) => {
+    Location.findOne({
+        '_id': req.params.id
+    }, (err, location) => {
+        err ? res.send(err) : res.send(location);
+    })
+})
+router.get('/name/:name', (req,res) => {
+    const reg = new RegExp(req.params.name, 'i');
+    Location.find({
+        'name': reg
+    }).then((err,location)=>{
+        err ? res.send(err) : res.send(location);
+    })
 })
 router.post('/', (req,res) => {
-    res.send('created new locations')
+   Location.create(req.body).then((err,location)=>{
+        err ? res.send(err) : res.send(location); 
+     })
 })
 router.post('/:id', (req,res) => {
-    res.send(`updated for locations ${req.params.id}`)
-})
+    Location.findByIdAndUpdate(req.params.id, req.body, {
+        new: true
+    }, (err, location) => {
+        err ? res.send(err) : res.send(location);
+    })})
 router.delete('/:id', (req,res) => {
-    res.send(`deleted for locations ${req.params.id}`)
+    Location.findByIdAndRemove(req.params.id, (err, location) => {
+        const msg = {
+            message: 'Deleted',
+            id: location.id
+        }
+        err ? res.send(err) : res.send(msg);
+    })
 })
 module.exports = router;

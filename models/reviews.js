@@ -1,12 +1,14 @@
 const Schema = require('mongoose').Schema;
-
 const db = require('../config/db');
 const reviewSchema = {
     location : {
        type : Schema.Types.ObjectId,
         ref : 'Location'
     }, 
-    date : Date,
+    date : {
+        type: Date,
+        default : Date.now()
+    },
     reviewer : {
         type : Schema.Types.ObjectId,
         ref : 'User'
@@ -30,8 +32,7 @@ const reviewSchema = {
             }
         ]
     },
-    totalReviews : Number,
-    stars : Number, 
+   
 }
 const Review = db.getModel(reviewSchema, 'Review');
 module.exports = Review;

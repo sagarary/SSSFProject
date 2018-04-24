@@ -2,7 +2,10 @@ const Schema = require('mongoose').Schema;
 const db= require('../config/db');
 
 const userSchema = {
-username: String,
+username: {
+    type:String,
+    unique : true
+},
 firstName : String,
 lastName : String,
 email : String,
