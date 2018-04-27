@@ -1,4 +1,11 @@
+
+
 module.exports = {
+    "plugins": ["node"],
+    "extends": ["eslint:recommended", "plugin:node/recommended"],
+    "rules": {
+        "node/exports-style": ["error", "module.exports"]
+    },
     "extends": ["eslint:recommended", "google"],
     "parserOptions": {
           "ecmaVersion": 6,
@@ -24,7 +31,7 @@ module.exports = {
     "env": {
       "browser": true,
       "es6": true
-    }
-         
+    },
   }
+  
   ;

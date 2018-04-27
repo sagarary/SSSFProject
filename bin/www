@@ -6,7 +6,6 @@
 
 const app = require('../app');
 const debug = require('debug')('sssfproject:server');
-const http = require('http');
 const DB = require('../config/db');
 const https = require('https');
 const fs= require('fs');
@@ -29,7 +28,7 @@ const sslcert = fs.readFileSync('ssl-cert.pem');
 const options = {
   key: sslkey,
   cert: sslcert
-}
+};
 
 const server = https.createServer(options, app);
 /**
@@ -44,8 +43,8 @@ server.on('listening', onListening);
  * Normalize a port into a number, string, or false.
  */
 
-function normalizePort(val) {
-  var port = parseInt(val, 10);
+const normalizePort = (val) => {
+  const port = parseInt(val, 10);
 
   if (isNaN(port)) {
     // named pipe
@@ -64,12 +63,12 @@ function normalizePort(val) {
  * Event listener for HTTP server "error" event.
  */
 
-function onError(error) {
+const onError = (error) => {
   if (error.syscall !== 'listen') {
     throw error;
   }
 
-  var bind = typeof port === 'string'
+  const bind = typeof port === 'string'
     ? 'Pipe ' + port
     : 'Port ' + port;
 
@@ -86,16 +85,15 @@ function onError(error) {
     default:
       throw error;
   }
-}
-
+};
 /**
  * Event listener for HTTP server "listening" event.
  */
 
-function onListening() {
-  var addr = server.address();
-  var bind = typeof addr === 'string'
+const onListening = () => {
+  const addr = server.address();
+  const bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
-}
+};
