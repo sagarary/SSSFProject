@@ -6,6 +6,7 @@
 
 const app = require('../app');
 const debug = require('debug')('sssfproject:server');
+const http = require('http');
 const DB = require('../config/db');
 const https = require('https');
 const fs= require('fs');
@@ -13,33 +14,9 @@ const fs= require('fs');
 DB.connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`
 );
 
+
 /**
  * Get port from environment and store in Express.
- */
-
-const port = normalizePort(process.env.PORT || '3000');
-app.set('port', port);
-
-/**
- * Create HTTPS server.
- */
-const sslkey = fs.readFileSync('ssl-key.pem');
-const sslcert = fs.readFileSync('ssl-cert.pem');
-const options = {
-  key: sslkey,
-  cert: sslcert
-};
-
-const server = https.createServer(options, app);
-/**
- * Listen on provided port, on all network interfaces.
- */
-
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
-
-/**
  * Normalize a port into a number, string, or false.
  */
 
@@ -58,6 +35,26 @@ const normalizePort = (val) => {
 
   return false;
 }
+
+const port = normalizePort(process.env.PORT || '3000');
+app.set('port', port);
+
+/**
+ * Create HTTPS server.
+ */
+const sslkey = fs.readFileSync('ssl-key.pem');
+const sslcert = fs.readFileSync('ssl-cert.pem');
+const options = {
+  key: sslkey,
+  cert: sslcert
+}
+
+const server = https.createServer(options, app);
+/**
+ * Listen on provided port, on all network interfaces.
+ */
+
+server.listen(port);
 
 /**
  * Event listener for HTTP server "error" event.
@@ -85,7 +82,8 @@ const onError = (error) => {
     default:
       throw error;
   }
-};
+}
+
 /**
  * Event listener for HTTP server "listening" event.
  */
@@ -96,4 +94,7 @@ const onListening = () => {
     ? 'pipe ' + addr
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
-};
+}
+server.on('error', onError);
+server.on('listening', onListening);
+
