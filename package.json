@@ -13,7 +13,6 @@
     "@angular/cli": "^1.7.4",
     "@angular/core": "^5.2.10",
     "@google/maps": "^0.4.6",
-    "apidoc": "^0.17.6",
     "body-parser": "^1.18.2",
     "cookie-parser": "~1.4.3",
     "cors": "^2.8.4",
