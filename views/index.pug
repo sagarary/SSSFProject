@@ -1,6 +1,18 @@
 extends layout
 block content
-  div(id="container")
-    div(id="map")
-    div(id="topbar")
-    div(id="sidebar")
+  .container-fluid
+        nav.navbar.navbar-expand-sm.navbar-light.bg-faded
+            button.navbar-toggler(type='button', data-toggle='collapse', data-target='#nav-content', aria-controls='nav-content', aria-expanded='false', aria-label='Toggle navigation')
+                span.navbar-toggler-icon
+            a.navbar-brand(href='#') Logo
+            #nav-content.collapse.navbar-collapse.justify-content-end
+                ul.navbar-nav
+                li.nav-item
+                    a.nav-link(href='#') Events
+                li.nav-item
+                    a.nav-link(href='#') Connections
+                li.nav-item
+                    a.nav-link(href='#') Reviews
+                li.nav-item
+                    a.nav-link(href='#') Logout
+

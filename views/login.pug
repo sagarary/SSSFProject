@@ -1,13 +1,47 @@
 extends layout
 block content
-    div(id="container")
-        div(id="sidebarLogin")
-        div(id="topbar")
-            div(id="loginForm")
-                form(action="/login" method="post" class="form-inline")
-                    input(type="text" class="form-control" placeholder="username")
-                    input(type="password" class="form-control" placeholder="password")
-                    div(class="form-check")
-                    label(class="form-check-label") Remember Me
-                        input(type="checkbox" class="form-check-input") 
-                    button(type="submit" class="btn btn-primary") Login
+    .container-fluid
+        nav.navbar.navbar-default
+            .container-fluid
+                form#signin.navbar-form.navbar-right(role='form')
+                    .input-group
+                        span.input-group-addon
+                            i.glyphicon.glyphicon-user
+                        input#email.form-control(type='text', name='Username', value='', placeholder='Username')
+                    .input-group
+                        span.input-group-addon
+                            i.glyphicon.glyphicon-lock
+                        input#password.form-control(type='password', name='password', value='', placeholder='Password')
+                    button.btn.btn-primary(type='submit') Login
+        .centered-form#signupContainer
+            .col-md-4.no-border
+                .panel.panel-default.no-border#signup
+                        .panel-heading
+                            h3.panel-title
+                                | Sign Up for Adrenaline Rushes
+                            small It's free
+                        .panel-body
+                            form.signupForm(action="/signup" role="form")
+                                .row
+                                    .col-xs-6.col-sm-6.col-md-6
+                                        .form-group
+                                            input#first_name.form-control.input-sm(type='text', name='first_name', placeholder='First Name')
+                                    .col-xs-6.col-sm-6.col-md-6
+                                        .form-group
+                                            input#last_name.form-control.input-sm(type='text', name='last_name', placeholder='Last Name')
+                                .form-group
+                                    input#email.form-control.input-sm(type='email', name='email', placeholder='Email Address')
+                                .form-group
+                                    input#email.form-control.input-sm(type='text', name='username', placeholder='username')
+                                .row
+                                    .col-xs-6.col-sm-6.col-md-6
+                                        .form-group
+                                            input#password.form-control.input-sm(type='password', name='password', placeholder='Password')
+                                    .col-xs-6.col-sm-6.col-md-6
+                                        .form-group
+                                            input#password_confirmation.form-control.input-sm(type='password', name='password_confirmation', placeholder='Confirm Password')
+                                input.btn.btn-info.btn-block(type='submit', value='Register')
+
+
+
+                
