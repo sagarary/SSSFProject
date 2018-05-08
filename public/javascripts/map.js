@@ -6,6 +6,7 @@ navigator.geolocation.getCurrentPosition((position) => {
     let lat = position.coords.latitude;
     let lng = position.coords.longitude;
 
+
     const gmap = new google.maps.Map(document.querySelector('#map'), {
         zoom: 14,
         zoomControl: true,
@@ -21,7 +22,7 @@ navigator.geolocation.getCurrentPosition((position) => {
     });
     let marker = 0;
     gmap.addListener('click', e => {
-        placeMarker(e.latLng, gmap)
+        placeMarker(e.latLng, gmap);
     });
     const placeMarker = (latLng, map) => {
         marker ? marker.setPosition(latLng) :
@@ -34,5 +35,7 @@ navigator.geolocation.getCurrentPosition((position) => {
             'lng': marker.getPosition().lng()
         });
         gmap.panTo(latLng);
+        showModal('#locationAddModal');
     }
+   
 })

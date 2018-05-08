@@ -15,6 +15,7 @@
   #map{
     height: 100vh;
     width: 100vw;
+
   }
   
   #topbar{
@@ -80,7 +81,7 @@
 }
 .nav-item, .nav-link{
   line-height: 20px;
-  font-size: 7vh
+  font-size: 3vh
 }
 
 .profile {
