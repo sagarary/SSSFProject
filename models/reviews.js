@@ -30,7 +30,8 @@ const reviewSchema = {
             {
                 type : String
             }
-        ]
+        ],
+        stars:Number
     },
    
 }

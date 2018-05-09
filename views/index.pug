@@ -34,10 +34,48 @@ block content
                         .form-group.row
                             label(for="image") Picture
                             input#picture.form-control-file(type="file")
-                        .form-group.row
-                            button.btn.btn-primary(name='submit', type='submit') Add Location
                 .modal-footer
+                button.btn.btn-primary(name='submit', type='submit') Add Location
                 button.btn.btn-secondary(type='button', data-dismiss='modal') Close
+        #reviewAddModal.modal.fade(tabindex="-1" aria-hidden="true")
+            .modal-dialog(role="document")
+            .modal-content
+                .modal-header
+                h5#reviewAddMOdal.modal-title Add Review
+                .modal-body
+                    form#reviewAddForm
+                        .form-group.row
+                            label.col-4
+                            .col-8
+                            input#title.form-control.here(name='title', placeholder='Title', type='text')
+                        .form-group.row
+                            label.col-4
+                            .col-8
+                            textarea#review.form-control.here(name='review', placeholder='Review', type='text')
+                .modal-footer
+                    button.btn.btn-primary(name='submit', type='submit') Add Review
+                    button.btn.btn-secondary(type='button', data-dismiss='modal') Close
+        #eventAddModal.modal.fade(tabindex="-1" aria-hidden="true")
+            .modal-dialog(role="document")
+            .modal-content
+                .modal-header
+                h5#eventAddModal.modal-title Add Event
+                .modal-body
+                    form
+                        .form-group.row
+                            label.col-4
+                            .col-8
+                            input#title.form-control.here(name='title', placeholder='Title', type='text')
+                        .form-group.row
+                            label.col-4
+                            .col-8
+                            textarea#description.form-control.here(name='description', placeholder='Description', type='text')
+                        .form-group.row
+                            .col-4
+                            input#date.form-control.here(name='date', placeholder='Select Date', type='date' )
+                .modal-footer
+                    button.btn.btn-primary(name='submit', type='submit') Add Review
+                    button.btn.btn-secondary(type='button', data-dismiss='modal') Close
 
         #map
         block modals

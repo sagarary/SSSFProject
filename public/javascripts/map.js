@@ -57,10 +57,8 @@ navigator.geolocation.getCurrentPosition((position) => {
             <p>${details}</p>
          </div>
          <div class="modal-footer">
-           <button type="button" class="btn btn-primary" id="review" onClick="showModal('#locationAddModal')">Review</button>
-           <button type="button" class="btn btn-primary">Add Event</button>
-           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-         </div>
+           <button type="button" class="btn btn-primary" id="review" onClick="showModal('#reviewAddModal')">Review</button>
+           <button type="button" class="btn btn-primary" onClick="showModal('#eventAddModal')">Add Event</button>
        </div>
      `;
      marker.addListener('click',()=>{
