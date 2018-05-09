@@ -1,14 +1,26 @@
-extends layout
-block content
-  #locationAddModal.modal.fade(tabindex="-1" aria-hidden="true")
-            .modal-dialog
+each location in locations
+  
+
+.markerModal.modal.fade(tabindex="-1" aria-hidden="true")
+            .modal-dialog(role="document")
             .modal-content
                 .modal-header
-                h5#locationAddMOdal.modal-title Add new Location
-                button.close(type='button', data-dismiss='modal', aria-label='Close')
-                    span(aria-hidden='true') ×
+                h5#locationAddMOdal.modal-title #{location.title}
                 .modal-body
-                | ...
+                    form#locationAddForm
+                        .form-group.row
+                            label.col-4
+                            .col-8
+                            input#Name.form-control.here(name='name', placeholder='Name', required='required', type='text')
+                        .form-group.row
+                            label.col-4
+                            .col-8
+                            textarea#details.form-control(name='details', cols='40', rows='5', aria-describedby='detailsHelpBlock')
+                            span#detailsHelpBlock.form-text.text-muted Details about the location
+                        .form-group.row
+                            label(for="image") Picture
+                            input#picture.form-control-file(type="file")
+                        .form-group.row
+                            button.btn.btn-primary(name='submit', type='submit') Add Location
                 .modal-footer
                 button.btn.btn-secondary(type='button', data-dismiss='modal') Close
-                button.btn.btn-primary(type='button') Save changes

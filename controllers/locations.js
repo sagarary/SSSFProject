@@ -50,7 +50,6 @@ router.use(bodyParser.urlencoded({ extended: true }));
 
 router.get('/', (req,res) => {
     Location.find().then((err,location)=>{
-        if (err) console.log(err);
         err ? res.send(err) : res.send(location);
     })
 })
