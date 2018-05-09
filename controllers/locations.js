@@ -2,6 +2,13 @@
 const express = require('express')
 ,router = express.Router()
 ,Location = require('../models/locations');
+const multer = require('multer');
+const upload = multer({ dest: 'public/images/' });
+const bodyParser = require('body-parser');
+router.use(bodyParser.json());
+router.use(bodyParser.urlencoded({ extended: true }));
+
+
 
 /**
  * @api {get} /locations Get all locations
@@ -43,6 +50,7 @@ const express = require('express')
 
 router.get('/', (req,res) => {
     Location.find().then((err,location)=>{
+        if (err) console.log(err);
         err ? res.send(err) : res.send(location);
     })
 })
@@ -202,11 +210,38 @@ router.get('/name/:name', (req,res) => {
  * @apiErrorExample {json} Error
  *    HTTP/1.1 500 Internal Server Error
  */
-router.post('/', (req,res) => {
-   Location.create(req.body).then((err,location)=>{
-        err ? res.send(err) : res.send(location); 
-     })
+
+router.post('/', upload.single('file'), (req,res,next) => {
+    const picStr = 'images/'+req.file.filename;
+    req.body.media={
+        "photos" : [picStr],
+        "videos" : [],
+        "audios" : []
+    }
+    req.body.cover = picStr;
+    next();
 })
+router.use('/', (req,res,next) =>{
+  const coords = JSON.parse(req.body.coords);
+  const lat = coords.lat;
+  const lng = coords.lng;
+  req.body.coordinates = {
+    lat: lat,
+    lng: lng
+  }
+  next();
+})
+router.use('/', (req,res,next) => {
+    req.body.reviews=[];
+    req.body.added = "507f1f77bcf8cde799439011";
+    next();
+})
+router.use('/', (req,res,next) => {
+    Location.create(req.body).then((err,location) => {
+        res.redirect('back').json(req.body);
+    })
+})
+
 /**
  * @api {post} /locations/id Update a location
  * @apiDescription Update a location based on input data and provided id

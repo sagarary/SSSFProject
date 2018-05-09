@@ -3,6 +3,9 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const multer = require('multer');
+const upload = multer({ dest: 'public/images/' });
+const bodyParser = require('body-parser');
 
 require('dotenv').config();
 
@@ -30,6 +33,8 @@ app.use('/users', usersController);
 app.use('/locations', locationsController);
 app.use('/events', eventsController);
 app.use('/reviews', reviewsController);
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 
 

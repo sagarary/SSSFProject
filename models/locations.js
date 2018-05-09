@@ -37,12 +37,11 @@ totalReviews : {
     default : 0
 },
 stars : Number, 
-added :  [
-    {
+added : {
         type : Schema.Types.ObjectId,
         ref : 'User',
     }
-],
+,
 }
 const Location = db.getModel(locationSchema, 'Location');
 

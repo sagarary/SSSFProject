@@ -1,15 +1,17 @@
 extends layout
 block content
     .container-fluid
-        nav.navbar.navbar-default
+        nav.navbar.navbar-light.fixed-top
             .container-fluid
-                form#signin.navbar-form.navbar-right(role='form')
+                a.navbar-brand.mb-0.h1
+                | Logo
+                form#signin.form-inline(role='form')
                     .input-group
-                        span.input-group-addon
+                        span.input-group-prepend
                             i.glyphicon.glyphicon-user
-                        input#email.form-control(type='text', name='Username', value='', placeholder='Username')
+                        input#email.form-control.mr-sm-2(type='text', name='Username', value='', placeholder='Username')
                     .input-group
-                        span.input-group-addon
+                        span.input-group-prepend
                             i.glyphicon.glyphicon-lock
                         input#password.form-control(type='password', name='password', value='', placeholder='Password')
                     button.btn.btn-primary(type='submit') Login

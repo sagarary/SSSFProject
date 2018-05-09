@@ -16,34 +16,25 @@ block content
                 li.nav-item
                     a.nav-link(href='#') Logout
         .row.profile
-            .col-md-3
-                .profile-sidebar
-                    .profile-userpic
-                        img.img-responsive(src='', alt='')
-                    .profile-usertitle
-                        .profile-usertitle-name
-                        | Full Name
-                        .profile-usertitle-job
-                        | Intro
+            .profile-sidebar
+                .profile-userpic
+                    img.img-fluid(src='', alt='')
+                .profile-usertitle
+                    .profile-usertitle-name
+                    | Full Name
+                    .profile-usertitle-job
+                    | Intro
                     .profile-userbuttons
                         button.btn.btn-success.btn-sm(type='button') Follow
                         button.btn.btn-danger.btn-sm(type='button') Message
-                    .profile-usermenu
-                        ul.nav
-                            li
-                                a(href='#')
-                                i.glyphicon.glyphicon-home
-                                | 							Overview
-                            li
-                                a(href='#')
-                                i.glyphicon.glyphicon-user
-                                | 							Account Settings
-                            li
-                                a(href='#', target='_blank')
-                                i.glyphicon.glyphicon-ok
-                                | 							Tasks
-                            li
-                                a(href='#')
-                                i.glyphicon.glyphicon-flag
-                                | 							Help
-            .col-md-9
+                .profile-usermenu
+                    ul.nav
+                        li
+                            a.nav-link(href='#') Overview
+                        li
+                            a.nav-link(href='#') Account Settings
+                        li
+                            a.nav-link(href='#', target='_blank') Tasks
+                        li
+                            a.nav-link(href='#') Help
+            .col-lg-9

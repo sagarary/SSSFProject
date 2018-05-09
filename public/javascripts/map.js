@@ -1,6 +1,8 @@
 navigator.geolocation.getCurrentPosition((position) => {
     let coords = {};
-
+    const coordsData = document.createElement('input');
+        coordsData.setAttribute('type', 'hidden');
+        coordsData.setAttribute('name', 'coords');
 
     // Get the coordinates of the current position.
     let lat = position.coords.latitude;
@@ -36,6 +38,28 @@ navigator.geolocation.getCurrentPosition((position) => {
         });
         gmap.panTo(latLng);
         showModal('#locationAddModal');
+        coordsData.setAttribute('value', coords);
+        const inputForm = document.querySelector('#locationAddForm');
+        inputForm.appendChild(coordsData);
+        
+        inputForm.addEventListener('submit', (e)=> {
+            e.preventDefault();
+            const data = new FormData(e.target);
+            const fileElement = e.target.querySelector('input[type=file]');
+            const file = fileElement.files[0];
+            data.append('file', file);
+            console.log(data);
+            
+            const url = '/locations';
+            fetch(url, {
+                method:'post',
+                body : data
+            }).then(()=> {
+                hideModel('#locationAddModal', "Added new Location", data.get('name')+ "Added to locations");
+            })
+        })
+        
     }
+    
+});
    
-})
