@@ -3,6 +3,8 @@
 const express = require('express')
     , router = express.Router()
     , Event = require('../models/events');
+const multer= require('multer');
+const getFields = multer();
 
 /**
  * @api {get} /events Get all events
@@ -250,9 +252,9 @@ router.get('/organiser/:id', (req, res) => {
  * @apiErrorExample {json} Error
  *    HTTP/1.1 500 Internal Server Error
  */
-router.post('/', (req, res) => {
+router.post('/', getFields.any(),(req, res) => {
     req.body.date = new Date(req.body.date);
-    console.log(req.body.date);
+    console.log(req.body)
     Event.create(req.body).then((err, event) => {
         err ? res.send(err) : res.send(event)
     })

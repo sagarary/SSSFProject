@@ -32,18 +32,21 @@ navigator.geolocation.getCurrentPosition((position) => {
         console.log(locations);
         allLocations = locations;
         for (const [index,location] of locations.entries()){
-            loadMarkers(location.coordinates, gmap,location.name, location.description,location.cover);
+            //console.log(location._id)
+            loadMarkers(location._id,location.coordinates, gmap,location.name, location.description,location.cover);
+            
         }
     })
     
 
-    const loadMarkers= (coords,map,name,details,cover) =>{
+    const loadMarkers= (location,coords,map,name,details,cover) =>{
      marker = new google.maps.Marker({
          position:coords,
          map : map,
          title:name,
          icon:icon
      })
+     
      markers.push(marker);
      const contentString=`
        <div class="content">
@@ -57,8 +60,10 @@ navigator.geolocation.getCurrentPosition((position) => {
             <p>${details}</p>
          </div>
          <div class="modal-footer">
-           <button type="button" class="btn btn-primary" id="review" onClick="showModal('#reviewAddModal')">Review</button>
-           <button type="button" class="btn btn-primary" onClick="showModal('#eventAddModal')">Add Event</button>
+           <button type="button" class="btn btn-info" id="viewReview" onClick="viewReview()">View Reviews</button>
+           <button type="button" class="btn btn-info" id="viewEvents" onClick="viewEvents()">See Events</button>
+           <button type="button" class="btn btn-primary" id="addReview" onClick="showModal('#reviewAddModal')">Add Review</button>
+           <button type="button" class="btn btn-primary" id="addEvent" onClick="showModal('#eventAddModal')">Add Event</button>
        </div>
      `;
      marker.addListener('click',()=>{
@@ -66,7 +71,42 @@ navigator.geolocation.getCurrentPosition((position) => {
          infoWindow.setContent(contentString);
          infoWindow.setPosition(marker.getPosition());
          infoWindow.open(map,marker);
+         const reviewAddForm=document.querySelector('#reviewAddForm');
+        reviewAddForm.addEventListener('submit',(e)=> {
+            e.preventDefault();
+            const data = new FormData(e.target);
+            data.append('location',location);
+            const url = '/reviews';
+            fetch(url,{
+                method:'post',
+                body:data,
+            }).then(()=>{
+                infoWindow.close();
+                hideModel('#reviewAddModal', 'Added new Review');
+            })
+            
+        })
+        const eventAddForm=document.querySelector('#eventAddForm');
+        console.log(eventAddForm);
+        eventAddForm.addEventListener('submit',(e)=> {
+            console.log(eventAddForm)
+            e.preventDefault();
+            console.log('here');
+            const data = new FormData(e.target);
+            data.append('location',location);
+            const url = '/events';
+            fetch(url,{
+                method:'post',
+                body:data,
+            }).then(()=>{
+                infoWindow.close();
+                hideModel('#eventAddModal', 'Added new Event');
+            })
+            
+        })
      })
+    
+
     
     }
 
@@ -110,7 +150,6 @@ navigator.geolocation.getCurrentPosition((position) => {
             const fileElement = e.target.querySelector('input[type=file]');
             const file = fileElement.files[0];
             data.append('file', file);
-            console.log(data);
             
             const url = '/locations';
             fetch(url, {
@@ -120,6 +159,7 @@ navigator.geolocation.getCurrentPosition((position) => {
                 hideModel('#locationAddModal', "Added new Location", data.get('name')+ "Added to locations");
             })
         })
+
         
     }
     

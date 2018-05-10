@@ -2,6 +2,10 @@ const express = require('express'),
     router = express.Router(),
     Review = require('../models/reviews'),
     Location = require('../models/locations');
+    const bodyParser = require('body-parser');
+    router.use(bodyParser.json());
+    const multer=require('multer');
+    const getFields=multer();
 
  /**
  * @api {get} /reviews Get all reviews
@@ -184,7 +188,8 @@ router.get('/reviewer/:id', (req,res) => {
  * @apiErrorExample {json} Error
  *    HTTP/1.1 500 Internal Server Error
  */
-router.post('/', (req, res) => {
+router.post('/',getFields.any(), (req, res) => {
+    console.log(req.body);
     Location.findByIdAndUpdate({
         _id: req.body.location
     }, {
@@ -193,9 +198,10 @@ router.post('/', (req, res) => {
         }
     }).then(() => {
         Review.create(req.body).then((err, review) => {
-            err ? res.send(err) : res.send(review);
+            res.redirect('back');
         })
     })
+    
 })
 /**
  * @api {post} /reviews/:id update a review
