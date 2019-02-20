@@ -1,5 +1,8 @@
 const express = require('express'),
     router = express.Router(),
+    crypto = require('crypto-js'),
+    bcrypt = require('bcrypt')
+    SALT_FACTOR=10,
     User = require('../models/users');
 
 router.get('/', (req, res) => {
@@ -18,7 +21,7 @@ router.get('/', (req, res) => {
  * @apiSuccess {Date} lastLogin  User Last login date
  * @apiSuccess {Object} connections  User Users connected with the user
  * @apiSuccess {Object} events  User Events associated with the user
- * @apiSuccess {Object} reviews by the user User Reviews by the user 
+ * @apiSuccess {Object} reviews by the user User Reviews by the user
 
  * @apiSuccessExample {json} Success
  *    HTTP/1.1 200 OK
@@ -47,10 +50,10 @@ router.get('/list', (req, res) => {
     })
 })
 /**
- * @api {get} /users/userid/:id Get user with given id 
+ * @api {get} /users/userid/:id Get user with given id
  * @apiDescription Get the user with provided id
  * @apiGroup Users
- * @apiParam {Object} id User user id 
+ * @apiParam {Object} id User user id
  * @apiSuccess {String} username User Username
  * @apiSuccess {String} firstName User First Name
  * @apiSuccess {String} lastName User Last Name
@@ -60,7 +63,7 @@ router.get('/list', (req, res) => {
  * @apiSuccess {Date} lastLogin  User Last login date
  * @apiSuccess {Object} connections  User Users connected with the user
  * @apiSuccess {Object} events  User Events associated with the user
- * @apiSuccess {Object} reviews by the user User Reviews by the user 
+ * @apiSuccess {Object} reviews by the user User Reviews by the user
 
  * @apiSuccessExample {json} Success
  *    HTTP/1.1 200 OK
@@ -92,10 +95,10 @@ router.get('/userID/:id', (req, res) => {
     })
 })
 /**
- * @api {get} /user/user/:name Get user with given name 
+ * @api {get} /user/user/:name Get user with given name
  * @apiDescription Get user with the parameter string in username,firstname or lastname
  * @apiGroup Users
- * @apiParam {String} name 
+ * @apiParam {String} name
  * @apiSuccess {String} username User Username
  * @apiSuccess {String} firstName User First Name
  * @apiSuccess {String} lastName User Last Name
@@ -105,7 +108,7 @@ router.get('/userID/:id', (req, res) => {
  * @apiSuccess {Date} lastLogin  User Last login date
  * @apiSuccess {Object} connections  User Users connected with the user
  * @apiSuccess {Object} events  User Events associated with the user
- * @apiSuccess {Object} reviews by the user User Reviews by the user 
+ * @apiSuccess {Object} reviews by the user User Reviews by the user
 
  * @apiSuccessExample {json} Success
  *    HTTP/1.1 200 OK
@@ -159,7 +162,7 @@ router.get('/user/:name', (req, res) => {
  * @apiParam {Date} lastLogin  User Last login date
  * @apiParam {Object} connections  User Users connected with the user
  * @apiParam {Object} events  User Events associated with the user
- * @apiParam {Object} reviews by the user User Reviews by the user 
+ * @apiParam {Object} reviews by the user User Reviews by the user
  * @apiParamExample {json} new user
  * {
  * "username": "username",
@@ -186,7 +189,7 @@ router.get('/user/:name', (req, res) => {
  * @apiSuccess {Date} lastLogin  User Last login date
  * @apiSuccess {Object} connections  User Users connected with the user
  * @apiSuccess {Object} events  User Events associated with the user
- * @apiSuccess {Object} reviews by the user User Reviews by the user 
+ * @apiSuccess {Object} reviews by the user User Reviews by the user
 
  * @apiSuccessExample {json} Success
  *    HTTP/1.1 200 OK
@@ -211,9 +214,10 @@ router.get('/user/:name', (req, res) => {
  */
 router.post('/', (req, res) => {
     req.body.lastLogin = Date.now();
-    User.create(req.body).then((err, user) => {
-        err ? res.send(err) : res.send(user);
-    })
+    req.body.password = bcrypt.hashSync(req.body.password, 12 )
+          User.create(req.body).then((err, user) => {
+              err ? res.send(err) : res.send(user);
+          })
 })
 /**
  * @api {post} /users/:id Update user with given id
@@ -229,7 +233,7 @@ router.post('/', (req, res) => {
  * @apiParam {Date} lastLogin  User Last login date
  * @apiParam {Object} connections  User Users connected with the user
  * @apiParam {Object} events  User Events associated with the user
- * @apiParam {Object} reviews by the user User Reviews by the user 
+ * @apiParam {Object} reviews by the user User Reviews by the user
  * @apiParamExample {json} new user
  * {
  * "username": "username",
@@ -256,7 +260,7 @@ router.post('/', (req, res) => {
  * @apiSuccess {Date} lastLogin  User Last login date
  * @apiSuccess {Object} connections  User Users connected with the user
  * @apiSuccess {Object} events  User Events associated with the user
- * @apiSuccess {Object} reviews by the user User Reviews by the user 
+ * @apiSuccess {Object} reviews by the user User Reviews by the user
 
  * @apiSuccessExample {json} Success
  *    HTTP/1.1 200 OK
@@ -280,6 +284,7 @@ router.post('/', (req, res) => {
  *    HTTP/1.1 500 Internal Server Error
  */
 router.post('/:id', (req, res) => {
+  req.body.password = bcrypt.hashSync(req.body.password, 12 )
     User.findByIdAndUpdate(req.params.id, req.body, {
         new: true
     }, (err, user) => {
@@ -309,4 +314,6 @@ router.delete('/:id', (req, res) => {
         err ? res.send(err) : res.send(msg);
     })
 })
+
+
 module.exports = router;

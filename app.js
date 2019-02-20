@@ -9,11 +9,15 @@ const bodyParser = require('body-parser');
 
 require('dotenv').config();
 
+
+
 const indexRouter = require('./controllers/index');
 const usersController = require('./controllers/users');
 const locationsController = require('./controllers/locations');
 const eventsController = require('./controllers/events');
 const reviewsController = require('./controllers/reviews');
+const loginController = require('./controllers/login');
+
 
 const app = express();
 
@@ -33,8 +37,10 @@ app.use('/users', usersController);
 app.use('/locations', locationsController);
 app.use('/events', eventsController);
 app.use('/reviews', reviewsController);
+app.use('/login', loginController);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
 
 
 

@@ -5,11 +5,11 @@ block content
             .container-fluid
                 a.navbar-brand.mb-0.h1
                 | Logo
-                form#signin.form-inline(role='form')
+                form#signin.form-inline(role='form' action="/login", method="post")
                     .input-group
                         span.input-group-prepend
                             i.glyphicon.glyphicon-user
-                        input#email.form-control.mr-sm-2(type='text', name='Username', value='', placeholder='Username')
+                        input#email.form-control.mr-sm-2(type='text', name='username', value='', placeholder='Username')
                     .input-group
                         span.input-group-prepend
                             i.glyphicon.glyphicon-lock
@@ -23,7 +23,7 @@ block content
                                 | Sign Up for Adrenaline Rushes
                             small It's free
                         .panel-body
-                            form.signupForm(action="/signup" role="form")
+                            form.signupForm(action="/users" role="form" method="post")
                                 .row
                                     .col-xs-6.col-sm-6.col-md-6
                                         .form-group
@@ -43,7 +43,3 @@ block content
                                         .form-group
                                             input#password_confirmation.form-control.input-sm(type='password', name='password_confirmation', placeholder='Confirm Password')
                                 input.btn.btn-info.btn-block(type='submit', value='Register')
-
-
-
-                

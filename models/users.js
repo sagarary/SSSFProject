@@ -18,22 +18,25 @@ lastLogin : Date,
 },
 connections : [
     {
-        type : Schema.Types.ObjectId, 
+        type : Schema.Types.ObjectId,
         ref : 'User'
     }
 ],
 events : [
     {
-        type : Schema.Types.ObjectId, 
+        type : Schema.Types.ObjectId,
         ref : 'Event'
     }
 ],
 reviews : [
     {
-        type : Schema.Types.ObjectId, 
+        type : Schema.Types.ObjectId,
         ref : 'Location'
     }
 ],
 };
 const User = db.getModel(userSchema, 'User');
+User.prototype.validPassword = (password)=>{
+  return bcrypt.compareSync(password, this.password)
+}
 module.exports = User;
